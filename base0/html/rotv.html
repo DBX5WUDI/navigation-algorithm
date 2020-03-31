@@ -1,0 +1,125 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>&#36890;&#36807;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#26059;&#36716;&#30690;&#37327;</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-09"><meta name="DC.source" content="rotv.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>&#36890;&#36807;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#26059;&#36716;&#30690;&#37327;</h1><p><img src="rotv_eq13414705227902872724.png" alt="$$\begin{array}{l}&#xA;{\bf{Q}} = \cos \frac{\phi }{2} + \frac{\bf{\phi} }{\phi }\sin \frac{\phi }{2}\\&#xA;{{\bf{r}}^n} = {\bf{Q}}_b^n \circ {{\bf{r}}^b} \circ {\bf{Q}}_n^b&#xA;\end{array}&#xA;$$"></p><pre class="codeinput"><span class="keyword">function</span> vo = rotv(rv, vi)
+<span class="comment">% &#21151;&#33021;&#65306;&#36890;&#36807;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#26059;&#36716;&#30690;&#37327;</span>
+<span class="comment">% &#36755;&#20837;&#65306;rv - &#31561;&#25928;&#26059;&#36716;&#30690;&#37327;</span>
+<span class="comment">%       vi - &#38656;&#35201;&#36716;&#31227;&#30340;&#30690;&#37327;</span>
+<span class="comment">% &#36755;&#20986;&#65306;vo - &#36716;&#31227;&#21518;&#30340;&#30690;&#37327;</span>
+    n2 = rv(1)*rv(1) + rv(2)*rv(2) + rv(3)*rv(3);
+    <span class="keyword">if</span> n2&lt;1.0e-8  <span class="comment">% cos(n/2)=1-n2/8+n4/384; sin(n/2)/n=1/2-n2/48+n4/3840</span>
+        q1 = 1-n2*(1/8-n2/384); s = 1/2-n2*(1/48-n2/3840);
+    <span class="keyword">else</span>
+        n = sqrt(n2); n_2 = n/2;
+        q1 = cos(n_2); s = sin(n_2)/n;
+    <span class="keyword">end</span>
+    q2 = s*rv(1); q3 = s*rv(2); q4 = s*rv(3);
+    <span class="comment">%&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#20808;&#36716;&#25442;&#25104;&#22235;&#20803;&#25968;&#65292;&#22312;&#36890;&#36807;&#22235;&#20803;&#25968;&#36827;&#34892;&#30690;&#37327;&#21464;&#25442;</span>
+    qo1 =            - q2 * vi(1) - q3 * vi(2) - q4 * vi(3);
+    qo2 = q1 * vi(1)              + q3 * vi(3) - q4 * vi(2);
+    qo3 = q1 * vi(2)              + q4 * vi(1) - q2 * vi(3);
+    qo4 = q1 * vi(3)              + q2 * vi(2) - q3 * vi(1);
+    vo = vi;
+    vo(1) = -qo1 * q2 + qo2 * q1 - qo3 * q4 + qo4 * q3;
+    vo(2) = -qo1 * q3 + qo3 * q1 - qo4 * q2 + qo2 * q4;
+    vo(3) = -qo1 * q4 + qo4 * q1 - qo2 * q3 + qo3 * q2;
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 通过等效旋转矢量旋转矢量
+% 
+% $$\begin{array}{l}
+% {\bf{Q}} = \cos \frac{\phi }{2} + \frac{\bf{\phi} }{\phi }\sin \frac{\phi }{2}\\
+% {{\bf{r}}^n} = {\bf{Q}}_b^n \circ {{\bf{r}}^b} \circ {\bf{Q}}_n^b
+% \end{array}
+% $$
+
+function vo = rotv(rv, vi)
+% 功能：通过等效旋转矢量旋转矢量
+% 输入：rv - 等效旋转矢量
+%       vi - 需要转移的矢量
+% 输出：vo - 转移后的矢量
+    n2 = rv(1)*rv(1) + rv(2)*rv(2) + rv(3)*rv(3);
+    if n2<1.0e-8  % cos(n/2)=1-n2/8+n4/384; sin(n/2)/n=1/2-n2/48+n4/3840
+        q1 = 1-n2*(1/8-n2/384); s = 1/2-n2*(1/48-n2/3840);
+    else
+        n = sqrt(n2); n_2 = n/2;
+        q1 = cos(n_2); s = sin(n_2)/n;
+    end
+    q2 = s*rv(1); q3 = s*rv(2); q4 = s*rv(3);
+    %等效旋转矢量先转换成四元数，在通过四元数进行矢量变换
+    qo1 =            - q2 * vi(1) - q3 * vi(2) - q4 * vi(3);
+    qo2 = q1 * vi(1)              + q3 * vi(3) - q4 * vi(2);
+    qo3 = q1 * vi(2)              + q4 * vi(1) - q2 * vi(3);
+    qo4 = q1 * vi(3)              + q2 * vi(2) - q3 * vi(1);
+    vo = vi;
+    vo(1) = -qo1 * q2 + qo2 * q1 - qo3 * q4 + qo4 * q3;
+    vo(2) = -qo1 * q3 + qo3 * q1 - qo4 * q2 + qo2 * q4;
+    vo(3) = -qo1 * q4 + qo4 * q1 - qo2 * q3 + qo3 * q2;
+
+##### SOURCE END #####
+--></body></html>

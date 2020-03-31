@@ -1,0 +1,178 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>&#20351;&#29992;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#30340;&#23039;&#24577;&#22235;&#20803;&#25968;&#26356;&#26032;</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-10"><meta name="DC.source" content="qupdt2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>&#20351;&#29992;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#30340;&#23039;&#24577;&#22235;&#20803;&#25968;&#26356;&#26032;</h1><p><img src="qupdt2_eq16760753932319308162.png" alt="$$\begin{array}{l}&#xA;{\bf{C}}_{b(m)}^{b(m - 1)} = {{\bf{M}}_{RV}}(\phi _{ib(m)}^b)\\\\&#xA;{\bf{C}}_{n(m - 1)}^{n(m)} = {\bf{M}}_{RV}^T(T{\bf{\omega&#xA;}}_{in(m)}^n)\\\\&#xA;{\bf{C}}_{b(m)}^{n(m)} = {\bf{C}}_{n(m - 1)}^{n(m)}{\bf{C}}_{b(m - 1)}^{n(m - 1)}{\bf{C}}_{b(m)}^{b(m - 1)}&#xA;\end{array}$$"></p><pre class="codeinput"><span class="keyword">function</span> qnb1 = qupdt2(qnb0, rv_ib, rv_in)
+
+<span class="comment">% &#21151;&#33021;&#65306;&#20351;&#29992;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#30340;&#23039;&#24577;&#22235;&#20803;&#25968;&#26356;&#26032;</span>
+<span class="comment">% &#36755;&#20837;&#65306;qnb0 - &#26356;&#26032;&#21069;&#30340;&#23039;&#24577;&#22235;&#20803;&#25968;</span>
+<span class="comment">%       rv_ib - &#36733;&#20307;&#31995;&#21040;&#24815;&#24615;&#31995;&#30340;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;</span>
+<span class="comment">%       rv_in - &#23548;&#33322;&#31995;&#21040;&#24815;&#24615;&#31995;&#30340;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;</span>
+<span class="comment">% &#36755;&#20986;&#65306;qnb1 - &#26356;&#26032;&#21518;&#30340;&#23039;&#24577;&#22235;&#20803;&#25968;</span>
+
+	<span class="comment">% rv2q(rv_ib)&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#36716;&#25442;&#20026;&#22235;&#20803;&#25968;</span>
+    n2 = rv_ib(1)*rv_ib(1)+rv_ib(2)*rv_ib(2)+rv_ib(3)*rv_ib(3);
+    <span class="keyword">if</span> n2&lt;1.0e-8
+        rv_ib0 = 1-n2*(1/8-n2/384); s = 1/2-n2*(1/48-n2/3840);
+    <span class="keyword">else</span>
+        n = sqrt(n2); n_2 = n/2;
+        rv_ib0 = cos(n_2); s = sin(n_2)/n; <span class="comment">% n&#20026;fai&#65292;&#26159;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#30340;&#22823;&#23567;&#65292;rv_ib/n&#30690;&#37327;&#26159;&#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#30340;&#26041;&#21521;</span>
+    <span class="keyword">end</span> <span class="comment">% &#24471;&#21040;&#30340;&#22235;&#20803;&#25968;&#26159;&#21333;&#20301;&#22235;&#20803;&#25968;</span>
+    rv_ib(1) = s*rv_ib(1); rv_ib(2) = s*rv_ib(2); rv_ib(3) = s*rv_ib(3);
+
+    <span class="comment">% qb = qmul(qnb0, qib);&#22235;&#20803;&#25968;&#30456;&#20056;</span>
+    qb1 = qnb0(1) * rv_ib0   - qnb0(2) * rv_ib(1) - qnb0(3) * rv_ib(2) - qnb0(4) * rv_ib(3);
+    qb2 = qnb0(1) * rv_ib(1) + qnb0(2) * rv_ib0   + qnb0(3) * rv_ib(3) - qnb0(4) * rv_ib(2);
+    qb3 = qnb0(1) * rv_ib(2) + qnb0(3) * rv_ib0   + qnb0(4) * rv_ib(1) - qnb0(2) * rv_ib(3);
+    qb4 = qnb0(1) * rv_ib(3) + qnb0(4) * rv_ib0   + qnb0(2) * rv_ib(2) - qnb0(3) * rv_ib(1);
+
+    <span class="comment">% rv2q(-rv_in) &#31561;&#25928;&#26059;&#36716;&#30690;&#37327;&#36716;&#25442;&#20026;&#22235;&#20803;&#25968;</span>
+    n2 = rv_in(1)*rv_in(1)+rv_in(2)*rv_in(2)+rv_in(3)*rv_in(3);
+    <span class="keyword">if</span> n2&lt;1.0e-8
+        rv_in0 = 1-n2*(1/8-n2/384); s = -1/2+n2*(1/48-n2/3840);
+    <span class="keyword">else</span>
+        n = sqrt(n2); n_2 = n/2;
+        rv_in0 = cos(n_2); s = -sin(n_2)/n;
+    <span class="keyword">end</span>
+    rv_in(1) = s*rv_in(1); rv_in(2) = s*rv_in(2); rv_in(3) = s*rv_in(3);
+
+    <span class="comment">% qnb1 = qmul(qnb, qb);&#22235;&#20803;&#25968;&#30456;&#20056;</span>
+    qnb1 = qnb0;
+    qnb1(1) = rv_in0 * qb1 - rv_in(1) * qb2 - rv_in(2) * qb3 - rv_in(3) * qb4;
+    qnb1(2) = rv_in0 * qb2 + rv_in(1) * qb1 + rv_in(2) * qb4 - rv_in(3) * qb3;
+    qnb1(3) = rv_in0 * qb3 + rv_in(2) * qb1 + rv_in(3) * qb2 - rv_in(1) * qb4;
+    qnb1(4) = rv_in0 * qb4 + rv_in(3) * qb1 + rv_in(1) * qb3 - rv_in(2) * qb2;
+
+    <span class="comment">% normalization &#23039;&#24577;&#22235;&#20803;&#25968;&#27491;&#20132;&#21270;</span>
+    n2 = qnb1(1)*qnb1(1)+qnb1(2)*qnb1(2)+qnb1(3)*qnb1(3)+qnb1(4)*qnb1(4);
+    <span class="keyword">if</span> (n2&gt;1.000001 || n2&lt;0.999999)
+        nq = 1/sqrt(n2);
+        qnb1(1) = qnb1(1)*nq; qnb1(2) = qnb1(2)*nq; qnb1(3) = qnb1(3)*nq; qnb1(4) = qnb1(4)*nq;
+    <span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 使用等效旋转矢量的姿态四元数更新
+% 
+% $$\begin{array}{l}
+% {\bf{C}}_{b(m)}^{b(m - 1)} = {{\bf{M}}_{RV}}(\phi _{ib(m)}^b)\\\\
+% {\bf{C}}_{n(m - 1)}^{n(m)} = {\bf{M}}_{RV}^T(T{\bf{\omega
+% }}_{in(m)}^n)\\\\
+% {\bf{C}}_{b(m)}^{n(m)} = {\bf{C}}_{n(m - 1)}^{n(m)}{\bf{C}}_{b(m - 1)}^{n(m - 1)}{\bf{C}}_{b(m)}^{b(m - 1)}
+% \end{array}$$
+% 
+function qnb1 = qupdt2(qnb0, rv_ib, rv_in)
+
+% 功能：使用等效旋转矢量的姿态四元数更新
+% 输入：qnb0 - 更新前的姿态四元数
+%       rv_ib - 载体系到惯性系的等效旋转矢量
+%       rv_in - 导航系到惯性系的等效旋转矢量
+% 输出：qnb1 - 更新后的姿态四元数
+
+	% rv2q(rv_ib)等效旋转矢量转换为四元数
+    n2 = rv_ib(1)*rv_ib(1)+rv_ib(2)*rv_ib(2)+rv_ib(3)*rv_ib(3);
+    if n2<1.0e-8
+        rv_ib0 = 1-n2*(1/8-n2/384); s = 1/2-n2*(1/48-n2/3840);
+    else
+        n = sqrt(n2); n_2 = n/2;
+        rv_ib0 = cos(n_2); s = sin(n_2)/n; % n为fai，是等效旋转矢量的大小，rv_ib/n矢量是等效旋转矢量的方向
+    end % 得到的四元数是单位四元数
+    rv_ib(1) = s*rv_ib(1); rv_ib(2) = s*rv_ib(2); rv_ib(3) = s*rv_ib(3);
+    
+    % qb = qmul(qnb0, qib);四元数相乘
+    qb1 = qnb0(1) * rv_ib0   - qnb0(2) * rv_ib(1) - qnb0(3) * rv_ib(2) - qnb0(4) * rv_ib(3);
+    qb2 = qnb0(1) * rv_ib(1) + qnb0(2) * rv_ib0   + qnb0(3) * rv_ib(3) - qnb0(4) * rv_ib(2);
+    qb3 = qnb0(1) * rv_ib(2) + qnb0(3) * rv_ib0   + qnb0(4) * rv_ib(1) - qnb0(2) * rv_ib(3);
+    qb4 = qnb0(1) * rv_ib(3) + qnb0(4) * rv_ib0   + qnb0(2) * rv_ib(2) - qnb0(3) * rv_ib(1);
+    
+    % rv2q(-rv_in) 等效旋转矢量转换为四元数
+    n2 = rv_in(1)*rv_in(1)+rv_in(2)*rv_in(2)+rv_in(3)*rv_in(3);
+    if n2<1.0e-8
+        rv_in0 = 1-n2*(1/8-n2/384); s = -1/2+n2*(1/48-n2/3840);
+    else
+        n = sqrt(n2); n_2 = n/2;
+        rv_in0 = cos(n_2); s = -sin(n_2)/n;
+    end
+    rv_in(1) = s*rv_in(1); rv_in(2) = s*rv_in(2); rv_in(3) = s*rv_in(3); 
+    
+    % qnb1 = qmul(qnb, qb);四元数相乘
+    qnb1 = qnb0;    
+    qnb1(1) = rv_in0 * qb1 - rv_in(1) * qb2 - rv_in(2) * qb3 - rv_in(3) * qb4;
+    qnb1(2) = rv_in0 * qb2 + rv_in(1) * qb1 + rv_in(2) * qb4 - rv_in(3) * qb3;
+    qnb1(3) = rv_in0 * qb3 + rv_in(2) * qb1 + rv_in(3) * qb2 - rv_in(1) * qb4;
+    qnb1(4) = rv_in0 * qb4 + rv_in(3) * qb1 + rv_in(1) * qb3 - rv_in(2) * qb2;
+    
+    % normalization 姿态四元数正交化
+    n2 = qnb1(1)*qnb1(1)+qnb1(2)*qnb1(2)+qnb1(3)*qnb1(3)+qnb1(4)*qnb1(4);
+    if (n2>1.000001 || n2<0.999999)
+        nq = 1/sqrt(n2); 
+        qnb1(1) = qnb1(1)*nq; qnb1(2) = qnb1(2)*nq; qnb1(3) = qnb1(3)*nq; qnb1(4) = qnb1(4)*nq;
+    end
+
+
+
+##### SOURCE END #####
+--></body></html>

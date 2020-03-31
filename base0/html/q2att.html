@@ -1,0 +1,113 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>&#22235;&#20803;&#25968;&#36716;&#25442;&#20026;&#23039;&#24577;&#35282; q2att</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-09"><meta name="DC.source" content="q2att.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>&#22235;&#20803;&#25968;&#36716;&#25442;&#20026;&#23039;&#24577;&#35282; q2att</h1><p><img src="q2att_eq13673231570373024929.png" alt="$${\bf{C}}_b^n = \left[ {\begin{array}{*{20}{c}}&#xA;{q_0^2 + q_1^2 - q_2^2 - q_3^2}&{2({q_1}{q_2} - {q_0}{q_3})}&{2({q_1}{q_3} + {q_0}{q_2})}\\&#xA;{2({q_1}{q_2} + {q_0}{q_3})}&{q_0^2 - q_1^2 + q_2^2 - q_3^2}&{2({q_2}{q_3} - {q_0}{q_1})}\\&#xA;{2({q_1}{q_3} - {q_0}{q_2})}&{2({q_2}{q_3} + {q_0}{q_1})}&{q_0^2 - q_1^2 - q_2^2 + q_3^2}&#xA;\end{array}} \right]$$&#xA;$$\left\{ \begin{array}{l}&#xA;\theta  = \arcsin ({C_{32}})\\&#xA;\gamma  =  - {\rm{atan}}2({C_{31}},{C_{33}})\\&#xA;\psi  =  - {\rm{atan}}2({C_{12}},{C_{22}})&#xA;\end{array} \right.$$"></p><pre class="codeinput"> <span class="keyword">function</span> att = q2att(qnb)
+<span class="comment">% &#21151;&#33021;&#65306;&#22235;&#20803;&#25968;&#36716;&#21270;&#20026;&#23039;&#24577;&#35282;</span>
+<span class="comment">% &#36755;&#20837;&#65306;anb - &#22235;&#20803;&#25968;</span>
+<span class="comment">% &#36755;&#20986;&#65306;att - &#23039;&#24577;&#35282;</span>
+    q11 = qnb(1)*qnb(1); q12 = qnb(1)*qnb(2); q13 = qnb(1)*qnb(3); q14 = qnb(1)*qnb(4);
+    q22 = qnb(2)*qnb(2); q23 = qnb(2)*qnb(3); q24 = qnb(2)*qnb(4);
+    q33 = qnb(3)*qnb(3); q34 = qnb(3)*qnb(4);
+    q44 = qnb(4)*qnb(4);
+    C12=2*(q23-q14);
+    C22=q11-q22+q33-q44;
+    C31=2*(q24-q13); C32=2*(q34+q12); C33=q11-q22-q33+q44;
+    att = [ asin(C32);
+            atan2(-C31,C33);
+            atan2(-C12,C22) ];
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% 四元数转换为姿态角 q2att
+% 
+% $${\bf{C}}_b^n = \left[ {\begin{array}{*{20}{c}}
+% {q_0^2 + q_1^2 - q_2^2 - q_3^2}&{2({q_1}{q_2} - {q_0}{q_3})}&{2({q_1}{q_3} + {q_0}{q_2})}\\
+% {2({q_1}{q_2} + {q_0}{q_3})}&{q_0^2 - q_1^2 + q_2^2 - q_3^2}&{2({q_2}{q_3} - {q_0}{q_1})}\\
+% {2({q_1}{q_3} - {q_0}{q_2})}&{2({q_2}{q_3} + {q_0}{q_1})}&{q_0^2 - q_1^2 - q_2^2 + q_3^2}
+% \end{array}} \right]$$
+% $$\left\{ \begin{array}{l}
+% \theta  = \arcsin ({C_{32}})\\
+% \gamma  =  - {\rm{atan}}2({C_{31}},{C_{33}})\\
+% \psi  =  - {\rm{atan}}2({C_{12}},{C_{22}})
+% \end{array} \right.$$
+%    
+ function att = q2att(qnb)
+% 功能：四元数转化为姿态角
+% 输入：anb - 四元数
+% 输出：att - 姿态角
+    q11 = qnb(1)*qnb(1); q12 = qnb(1)*qnb(2); q13 = qnb(1)*qnb(3); q14 = qnb(1)*qnb(4); 
+    q22 = qnb(2)*qnb(2); q23 = qnb(2)*qnb(3); q24 = qnb(2)*qnb(4);     
+    q33 = qnb(3)*qnb(3); q34 = qnb(3)*qnb(4);  
+    q44 = qnb(4)*qnb(4);
+    C12=2*(q23-q14);
+    C22=q11-q22+q33-q44;
+    C31=2*(q24-q13); C32=2*(q34+q12); C33=q11-q22-q33+q44;
+    att = [ asin(C32); 
+            atan2(-C31,C33); 
+            atan2(-C12,C22) ];
+##### SOURCE END #####
+--></body></html>
