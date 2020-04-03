@@ -1,14 +1,24 @@
-function att = alignsb(imu, pos)
+function attsb = alignsb(imu, mag, pos)
 %功  能：SINS粗对准
 %输  入: imu - IMU数据
 %输  出: att - 粗对准结果
-    wbib = mean(imu(:,1:3),1)'; fbsf = mean(imu(:,4:6),1)';  %求粗对准时间范围内的wbib、fbsf平均值
-    if nargin<2  % 初始位置未知时，使用计算纬度进行粗对准
-        lat = asin(wbib'*fbsf/norm(wbib)/norm(fbsf));  %通过陀螺和加速度计输出，计算纬度
+global glv;
+    wbib = mean(imu(:,1:3),1)'; 
+    fbsf = mean(imu(:,4:6),1)';                         % 求粗对准时间范围内的wbib、fbsf平均值
+    Bb = mean(mag(:,1:3),1)';
+    if nargin<2                                         % 初始位置未知时，使用计算纬度进行粗对准
+        lat = asin(wbib'*fbsf/norm(wbib)/norm(fbsf));   % 通过陀螺和加速度计输出，计算纬度
         pos = [lat;0;0];
     end 
-    eth = earth(pos);  %计算当地水平坐标系内重力加速度、地球自转角速度
-    att = dv2atti(eth.gn, eth.wnie, -fbsf, wbib);  %通过n系、b系内两向量对比确定载体姿态角
+    eth = earth(pos);                                   % 计算当地水平坐标系内重力加速度、地球自转角速度
+    Bn = zeros(3,1);
+    [Bn(2),Bn(1),Bn(3)] = igrf('31-Dec-2019 12:00:00',pos(1)/glv.deg, pos(2)/glv.deg, pos(3)/glv.km);   % 磁感应强度计算[BN, BE, BU]
+    attsb = dv2atti(eth.gn, Bn, -fbsf, Bb);  %通过n系、b系内两向量对比确定载体姿态角
+    fprintf('\n************粗对准结果************\n');
+    fprintf('      俯仰角  %f °\n',attsb(1)/glv.deg );
+    fprintf('      横滚角  %f °\n',attsb(2)/glv.deg );
+    fprintf('      偏航角  %f °\n',attsb(3)/glv.deg );
+end
 
     
 function att = dv2atti(vn1, vn2, vb1, vb2)
@@ -21,3 +31,4 @@ function att = dv2atti(vn1, vn2, vb1, vb2)
         Cnb = 0.5 * (Cnb + (Cnb')^-1);
     end
     att = m2att(Cnb);
+end

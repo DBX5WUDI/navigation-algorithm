@@ -44,6 +44,7 @@ global glv;
     glv.ppmpsh = glv.ppm/sqrt(glv.hur); % ppm / sqrt(hour)
     glv.mil = 2*pi/6000;            % mil
     glv.nm = 1853;                  % nautical mile
+    glv.km = 1000;
     glv.wm_1 = [0,0,0]; glv.vm_1 = [0,0,0];   % the init of previous gyro & acc sample
     glv.cs = [                      % coning & sculling compensation coefficients
         [2,    0,    0,    0,    0    ]/3
