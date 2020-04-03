@@ -1,4 +1,4 @@
-function attk = alignvn(imu, att, pos, imuerr, ts)
+function [attk,Xkpk] = alignvn(imu, att, pos, imuerr, ts)
 %功  能：以Vn为量测值，运用卡尔曼滤波方法进行SINS初始对准，
 %        状态量为[φ;δV;εb;▽ ]
 %输  入: imu - IMU数据
@@ -21,9 +21,9 @@ global glv
     %%  卡尔曼滤波初始化
     % 状态估计初始值和均方误差初始值给定
     Xk = zeros(12, 1);                  % 状态量Xk=[φ; δV; εb; ▽ ]  
-    Pk = diag([[0.05; 0.05; 0.1]*glv.deg; [0.01;0.01;0.01]; imuerr.eb; imuerr.db])^2;   % 系统速度误差激励噪声序列
+    Pk = diag([[0.1; 0.1; 15]*glv.deg; [0.01;0.01;0.01]; imuerr.eb; imuerr.db])^2;   % 系统速度误差激励噪声序列
     Qk = diag([imuerr.web; imuerr.wdb; zeros(6,1)])^2*nts;                              % 系统噪声方差阵
-    Rk = diag([0.001;0.001;0.001])^2;   % 量测噪声方差阵
+    Rk = diag([1;1;0.1])^2;   % 量测噪声方差阵
     Ft = zeros(12);                     % 连续型系统方程F阵初始化  
     Hk = [zeros(3),eye(3),zeros(3,6)];  % 量测阵
     
@@ -53,8 +53,12 @@ global glv
         Xk = Xk+K*rk;                   % 计算状态估计——Xk
         Pk = (eye(12)-K*Hk)*Pk;         % 计算估计均方误差——Pk
         Pk = (Pk+Pk')/2;                % Pk正交化
-        qnb = qmul(rv2q(0.1*Xk(1:3)), qnb); Xk(1:3) = 0.9*Xk(1:3);  % 反馈校正系数为0.1
+       
+       %% 反馈校正系数为0.1
+        qnb = qmul(rv2q(0.1*Xk(1:3)), qnb); Xk(1:3) = 0.9*Xk(1:3);  
         vn = vn-0.1*Xk(4:6);  Xk(4:6) = 0.9*Xk(4:6);
+       
+       %% 数据存储
         attk((k+nn-1)/nn,:) = q2att(qnb)';
         Xkpk((k+nn-1)/nn,:) = [Xk; diag(Pk)]';
     end
