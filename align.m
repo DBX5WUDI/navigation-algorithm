@@ -7,10 +7,15 @@ ts = 0.01;                                      % 采样周期
 pnn = 4;                                        % 精对准子样个数
 t_align = 960;                                  % 总对准时间
 t_coarse = 180;                                 % 粗对准时间
-attset = [ 10; 50; 18];                         % 初始姿态角设定，填入角度值
+attset = [ -56; -103; 123];                         % 初始姿态角设定，填入角度值
 
-imuerr = adiserrset();                          % imu误差设定
-% imuerr = imuerrset(0.01, 50, 0.001, 5);         % imu误差设定
+fprintf('\n************实际值************\n');
+fprintf('      俯仰角  %f °\n',attset(1) );
+fprintf('      横滚角  %f °\n',attset(2) );
+fprintf('      偏航角  %f °\n',attset(3) );
+
+imuerr = adiserrset();                                  % imu误差设定
+% imuerr = imuerrset(0.01, 50, 0.001, 5);               % imu误差设定
 [imu,mag]= imumagstatic(attset,imuerr,t_align,ts);      % imu数据生成
 
 imu_coarse = imu(1:t_coarse/ts,:);              % imu用来粗对准的数据
@@ -18,12 +23,6 @@ mag_coarse = mag(1:t_coarse/ts,:);              % imu用来粗对准的数据
 imu_precise = imu(t_coarse/ts+1:t_align/ts,:);  % imu用于精对准的数据
 
 attsb = alignsb(imu_coarse, mag_coarse, glv.pos0);                      % 进行粗对准
-
-
-fprintf('\n************实际值************\n');
-fprintf('      俯仰角  %f °\n',attset(1) );
-fprintf('      横滚角  %f °\n',attset(2) );
-fprintf('      偏航角  %f °\n',attset(3) );
 
 % [attk,Xkpk] = alignvn(imu_precise, attsb, glv.pos0, imuerr, ts);   % 进行精对准
 % 
