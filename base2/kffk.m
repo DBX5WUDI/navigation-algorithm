@@ -5,7 +5,7 @@ function [Fk, Ft] = kffk(ins, varargin)
 % 输出：Fk - 离散时间转移矩阵
 %       Ft - 连续时间转移矩阵
     nts = ins.nts;
-    Ft = etm(ins);   Ft(22,22) = 0;             %SINS误差方程中各个矩阵
+    Ft = etm(ins);   Ft(21,21) = 0;             %SINS误差方程中各个矩阵
     Mpp = Ft(7:9,7:9);
     Mpvvn = ins.Mpv*ins.vn;
     Mpvvnx = ins.Mpv*askew(ins.vn);

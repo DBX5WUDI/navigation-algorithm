@@ -4,6 +4,7 @@ function insdrplot(avp, dravp, avptrue, avperr, xk)
 % 输出：图
 global glv;
     t = avp(:,end);t1 = dravp(:,end); t2 = avptrue(:,end); 
+%{
     % 速度
     figure('name','Velocity');
     set(gcf,'unit','centimeters','position',[1,2,48,24]);% 窗口大小设定
@@ -18,8 +19,8 @@ global glv;
     subplot(311);plot(t, avp(:,7), 'k-',t1, dravp(:,7), 'b-', t2, avptrue(:,7), '-r');xygo('lat');legend('SINS/DR','DR','TRUE');
     subplot(312);plot(t, avp(:,8), 'k-',t1, dravp(:,8), 'b-', t2, avptrue(:,8), '-r');xygo('lon');
     subplot(313);plot(t, avp(:,9), 'k-',t1, dravp(:,9), 'b-', t2, avptrue(:,9), '-r');xygo('H');
-    % 轨迹
-    
+%}    
+    % 轨迹    
     figure('name','trajectory');
     set(gcf,'unit','centimeters','position',[1,2,48,24]);
     plot(r2d(avp(:,8)), r2d(avp(:,7)),'k-',r2d(dravp(:,8)), r2d(dravp(:,7)),'b-',...

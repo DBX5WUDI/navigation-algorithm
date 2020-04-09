@@ -9,4 +9,4 @@ global glv
     if length(phi)==1,   phi = [phi*60; phi*60; phi];   end  % phi is scalar, then all in arcmin
     if length(dvn)==1,   dvn = [dvn; dvn; dvn];      end
     if length(dpos)==1,  dpos = [dpos; dpos; dpos];  end
-    davp = [phi(1:2)*glv.sec; phi(3)*glv.min; dvn; posseterr(dpos)]; %返回误差值
+    davp = [phi(1:2)*glv.sec; phi(3)*glv.min; dvn; dpos(1:2)/glv.Re; dpos(3)]; %返回误差值
