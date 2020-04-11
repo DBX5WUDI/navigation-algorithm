@@ -9,6 +9,7 @@ kod = 1;
 %% 误差值设定
 davp = avpseterr([30;30;10], 0, 10); 
 imuerr = imuerrset(0.01, 50, 0.001, 5);
+% imuerr = adiserrset(); 
 dinst = [15;0;10];
 dkod = 0.01; 
 %% SINS，DR，KF初始化
@@ -32,9 +33,8 @@ for k  = 1:nn:len-nn+1
     kf.Phikk_1 = kffk(ins);
     kf = kfupdate(kf,ins.pos-dr.pos);
     %% KF速度反馈
-%     ins.vn  = ins.vn - kf.xk(4:6);
-%     kf.xk(4:6) = zeros(3,1);     
-    
+%     ins.pos  = ins.pos - kf.xk(7:9);
+%     kf.xk(7:9) = zeros(3,1);        
     if mod(ki*nts,1) == 0  
         fprintf('Navigation time : %d s\n',ki*nts) ;
     end 
@@ -44,13 +44,10 @@ for k  = 1:nn:len-nn+1
     xkpk(ki,:)   = [kf.xk; diag(kf.Pxk); t]';
     ki = ki+1;
 end
-
-i_ref1 = find(trjod.avp(:,end)==insavp(   1,end));
-i_ref2 = find(trjod.avp(:,end)==insavp(ki-1,end));
-avperr = [aa2phi(insavp(:,1:3),trjod.avp(i_ref1:nn:i_ref2,1:3)),insavp(:,4:9)-trjod.avp(i_ref1:nn:i_ref2,4:9),insavp(:,end)-insavp(1,end)];
+%% 打印导航里程和图
 fprintf('\n       导航总里程：%.2fm\n\n',dr.distance);
-
-insdrplot(insavp,dravp,trjod.avp,avperr,xkpk);
+avptrue = trjod.avp(2:nn:end,:);
+insdrplot(insavp,dravp,avptrue,imuerr,xkpk);
 
 
 
