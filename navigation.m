@@ -8,10 +8,10 @@ inst = [3;60;6];
 kod = 1;
 %% 误差值设定
 davp = avpseterr([30;30;10], 0, 10); 
-imuerr = imuerrset(0.01, 50, 0.001, 5);
-% imuerr = adiserrset(); 
-dinst = [15;0;10];
-dkod = 0.01; 
+% imuerr = imuerrset(0.01, 50, 0.001, 5);
+imuerr = adiserrset(); 
+dinst = [15;0;300];
+dkod = 0.05; 
 %% SINS，DR，KF初始化
 ins = insinit(avpadderr(trjod.avp0,davp), trjod.ts);                
 dr  =  drinit(avpadderr(trjod.avp0,davp), d2r((inst+dinst)/60), kod*(1+dkod), trjod.ts);
@@ -33,8 +33,8 @@ for k  = 1:nn:len-nn+1
     kf.Phikk_1 = kffk(ins);
     kf = kfupdate(kf,ins.pos-dr.pos);
     %% KF速度反馈
-%     ins.pos  = ins.pos - kf.xk(7:9);
-%     kf.xk(7:9) = zeros(3,1);        
+    ins.vn  = ins.vn - kf.xk(4:6);
+    kf.xk(4:6) = zeros(3,1);        
     if mod(ki*nts,1) == 0  
         fprintf('Navigation time : %d s\n',ki*nts) ;
     end 
@@ -48,10 +48,3 @@ end
 fprintf('\n       导航总里程：%.2fm\n\n',dr.distance);
 avptrue = trjod.avp(2:nn:end,:);
 insdrplot(insavp,dravp,avptrue,imuerr,xkpk);
-
-
-
-
-
-
-
