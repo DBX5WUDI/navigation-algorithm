@@ -30,6 +30,8 @@ global glv;
         r2d(avptrue(:,8)), r2d(avptrue(:,7)),'r-','LineWidth',linewidth); xygo('lon', 'lat');setplt;
     plot(r2d(avptrue(1,8)), r2d(avptrue(1,7)), 'rp','LineWidth',linewidth);setplt;axis equal;
     l = legend('SINS/DR','TRUE', 'Location','Best');   set(l,'FontName','Times New Roman','FontSize',10.5);
+    pos2gpx('true.gpx',avptrue(:,7:9));
+    pos2gpx('navigation.gpx',insavp(:,7:9));
     
     figure('name','SINS Trajectory');
     plot(r2d(insavp(:,8)), r2d(insavp(:,7)),'k-',...

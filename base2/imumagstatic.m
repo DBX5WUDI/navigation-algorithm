@@ -5,7 +5,7 @@ function [imu,mag] = imumagstatic(att,imuerr,T,ts)
     Cbn = a2mat(att0(:))';
     imu = [Cbn*glv.eth.wnie; -Cbn*glv.eth.gn]';
     len = round(T/ts);
-    imu = repmat(imu*ts, len, 1);
+    imu = repmat(imu*ts, len, 1);       % imu测量为速度增量与角度增量，所以地球自转角速度与重力加速度需要*时间
     imu = imuadderr(imu, imuerr, ts);
     imu(:,7) = (1:len)'*ts;
     
