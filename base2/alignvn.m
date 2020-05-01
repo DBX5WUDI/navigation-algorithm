@@ -21,8 +21,8 @@ global glv
     %%  卡尔曼滤波初始化
     % 状态估计初始值和均方误差初始值给定
     Xk = zeros(12, 1);                  % 状态量Xk=[φ; δV; εb; ▽ ]  
-    Pk = diag([[0.1; 0.1; 15]*glv.deg; [0.01;0.01;0.01]; imuerr.eb; imuerr.db])^2;   % 系统速度误差激励噪声序列
-    Qk = diag([imuerr.web; imuerr.wdb; zeros(6,1)])^2*nts;                              % 系统噪声方差阵
+    Pk = diag([[1; 1; 1]*glv.deg; [1;1;1]; imuerr.eb; imuerr.db])^2;   % 系统速度误差激励噪声序列
+    Qk = diag([imuerr.web; imuerr.wdb; zeros(6,1)])^2*nts;             % 系统噪声方差阵
     Rk = diag([1;1;0.1])^2;   % 量测噪声方差阵
     Ft = zeros(12);                     % 连续型系统方程F阵初始化  
     Hk = [zeros(3),eye(3),zeros(3,6)];  % 量测阵

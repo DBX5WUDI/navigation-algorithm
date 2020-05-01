@@ -23,14 +23,16 @@ end
 
     
 function att = dv2atti(vn1, vn2, vb1, vb2)
-    vb1 = norm(vn1)/norm(vb1)*vb1;  %对b系内投影向量进行预处理
-    vb2 = norm(vn2)/norm(vb2)*vb2;
-    vntmp = cross(vn1,vn2);  %构造n系内第三向量vn1×vn2
-    vbtmp = cross(vb1,vb2);  %构造b系内第三向量vn1×vn2
-    Cnb = [vn1'; vntmp'; cross(vntmp,vn1)']^-1 * [vb1'; vbtmp'; cross(vbtmp,vb1)'];  %求取姿态矩阵
+    vn1 = vn1/norm(vn1);        %对b系内投影向量进行预处理
+    vn2 = vn2/norm(vn2);
+    vb1 = vb1/norm(vb1);        %对b系内投影向量进行预处理
+    vb2 = vb2/norm(vb2);
+    vntmp = cross(vn1,vn2);     %构造n系内第三向量vn1×vn2
+    vbtmp = cross(vb1,vb2);     %构造b系内第三向量vn1×vn2
+    Cnb = [vn1, vntmp,cross(vntmp,vn1)] * [vb1'; vbtmp'; cross(vbtmp,vb1)'];  %求取姿态矩阵
     for k=1:5  %姿态矩阵单位正交化
         Cnb = 0.5 * (Cnb + (Cnb')^-1);
-    end
+    end 
     att = m2att(Cnb);
 end
 
@@ -40,7 +42,7 @@ global glv;
     att(2) = asin(-fbsf(1)/cos(att(1))/g);
     B(1) = Bb(1)*cos(att(2))+Bb(3)*sin(att(2));
     B(2) = Bb(1)*sin(att(1))*sin(att(2))+Bb(2)*cos(att(1))-Bb(3)*sin(att(1))*cos(att(2));
-    att(3) = atan(B(1)/B(2))+3.1*glv.deg;
+    att(3) = atan(B(1)/B(2))+3.701305*glv.deg; % 加上西安本地磁偏角
     fprintf('      普通方法对准俯仰角  %f °\n',att(1)/glv.deg );
     fprintf('      普通方法对准横滚角  %f °\n',att(2)/glv.deg ); 
     fprintf('      普通方法对准航向角  %f °\n',att(3)/glv.deg ); 

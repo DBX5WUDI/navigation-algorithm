@@ -56,6 +56,6 @@ global glv;
     glv.v0 = [0;0;0];    % 3x1 zero-vector
     glv.qI = [1;0;0;0];  % identity quaternion
     glv.I33 = eye(3); glv.o33 = zeros(3);  % identity & zero 3x3 matrices
-    glv.pos0 = [34.246048*glv.deg; 108.909664*glv.deg; 380]; % position of INS Lab@NWPU
+    glv.pos0 = [34.245497*glv.deg; 108.905452*glv.deg; 405]; % position of INS Lab@NWPU
     glv.eth = []; glv.eth = earth(glv.pos0);
     [glv.rootpath, glv.datapath, glv.mytestflag] = psinsenvi;
