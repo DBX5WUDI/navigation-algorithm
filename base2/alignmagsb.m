@@ -15,22 +15,23 @@ global glv;
     [Bn(2),Bn(1),Bn(3)] = igrf('31-Dec-2019 12:00:00',pos(1)/glv.deg, pos(2)/glv.deg, pos(3)/glv.km);   % 磁感应强度计算[BN, BE, BU]
     attsb = dv2atti(eth.gn, Bn, -fbsf/ts, Bb);             % 通过n系、b系内两向量对比确定载体姿态角
     fprintf('\n************粗对准结果************\n');
-    fprintf('        双矢量方法俯仰角  %f °\n',attsb(1)/glv.deg );
-    fprintf('        双矢量方法横滚角  %f °\n',attsb(2)/glv.deg );
-    fprintf('        双矢量方法偏航角  %f °\n',attsb(3)/glv.deg );
+    fprintf('    双矢量方法：\n');
+    fprintf('        俯仰角  %f °\n',attsb(1)/glv.deg );
+    fprintf('        横滚角  %f °\n',attsb(2)/glv.deg );
+    fprintf('        偏航角  %f °\n',attsb(3)/glv.deg );
     attsb1 = euleralign(fbsf/ts, Bb, eth.g);
 end
 
     
 function att = dv2atti(vn1, vn2, vb1, vb2)
-    vn1 = vn1/norm(vn1);        %对b系内投影向量进行预处理
+    vn1 = vn1/norm(vn1);        % 对b系内投影向量进行预处理
     vn2 = vn2/norm(vn2);
-    vb1 = vb1/norm(vb1);        %对b系内投影向量进行预处理
+    vb1 = vb1/norm(vb1);        % 对b系内投影向量进行预处理
     vb2 = vb2/norm(vb2);
-    vntmp = cross(vn1,vn2);     %构造n系内第三向量vn1×vn2
-    vbtmp = cross(vb1,vb2);     %构造b系内第三向量vn1×vn2
+    vntmp = cross(vn1,vn2);     % 构造n系内第三向量vn1×vn2
+    vbtmp = cross(vb1,vb2);     % 构造b系内第三向量vn1×vn2
     Cnb = [vn1, vntmp,cross(vntmp,vn1)] * [vb1'; vbtmp'; cross(vbtmp,vb1)'];  %求取姿态矩阵
-    for k=1:5  %姿态矩阵单位正交化
+    for k=1:5                   % 姿态矩阵单位正交化
         Cnb = 0.5 * (Cnb + (Cnb')^-1);
     end 
     att = m2att(Cnb);
@@ -40,10 +41,20 @@ function att = euleralign(fbsf, Bb, g)
 global glv;
     att(1) = asin(fbsf(2)/g);
     att(2) = asin(-fbsf(1)/cos(att(1))/g);
-    B(1) = Bb(1)*cos(att(2))+Bb(3)*sin(att(2));
+    if fbsf(3)<0&&att(2)>0
+        att(2) = 180*glv.deg - att(2);
+    elseif fbsf(3)<0 && att(2)<0 
+        att(2) = -att(2) - 180*glv.deg;
+    end    
+    B(1) = Bb(1)*cos(att(2))+Bb(3)*sin(att(2));    
     B(2) = Bb(1)*sin(att(1))*sin(att(2))+Bb(2)*cos(att(1))-Bb(3)*sin(att(1))*cos(att(2));
-    att(3) = atan(B(1)/B(2))+3.701305*glv.deg; % 加上西安本地磁偏角
-    fprintf('      普通方法对准俯仰角  %f °\n',att(1)/glv.deg );
-    fprintf('      普通方法对准横滚角  %f °\n',att(2)/glv.deg ); 
-    fprintf('      普通方法对准航向角  %f °\n',att(3)/glv.deg ); 
+    if B(2)<0 
+        att(3) = atan(B(1)/B(2))+ 180*glv.deg +3.701305*glv.deg;
+    else 
+        att(3) = atan(B(1)/B(2))+3.701305*glv.deg; % 加上西安本地磁偏角
+    end
+    fprintf('    普通方法：\n');
+    fprintf('        俯仰角  %f °\n',att(1)/glv.deg );
+    fprintf('        横滚角  %f °\n',att(2)/glv.deg ); 
+    fprintf('        航向角  %f °\n',att(3)/glv.deg ); 
 end
