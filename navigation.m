@@ -8,9 +8,9 @@ inst = [3;60;6];
 kod = 1;
 %% 误差值设定
 davp = avpseterr([30;30;10], 0, 10); 
-% imuerr = imuerrset(0.01, 50, 0.001, 5);
-imuerr = adiserrset(); 
-dinst = [15;0;300];
+imuerr = imuerrset(0.01, 50, 0.001, 5);
+% imuerr = adiserrset(); 
+dinst = [15;0;-300];
 dkod = 0.05; 
 %% SINS，DR，KF初始化
 ins = insinit(avpadderr(trjod.avp0,davp), trjod.ts);                

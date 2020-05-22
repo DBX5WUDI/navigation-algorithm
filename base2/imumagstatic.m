@@ -22,3 +22,4 @@ function mag = magerrset(mb,wmb,mag)
     drift = [ mb + wmb*randn(m,1), mb + wmb*randn(m,1), mb + wmb*randn(m,1)];  
     mag(:,1:3) = mag(:,1:3) + drift;
 end
+

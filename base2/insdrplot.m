@@ -24,49 +24,66 @@ global glv;
     subplot(312);plot(t, insavp(:,8), 'k-',t1, dravp(:,8), 'b-', t2, avptrue(:,8), '-r','LineWidth',linewidth);xygo('lon');
     subplot(313);plot(t, insavp(:,9), 'k-',t1, dravp(:,9), 'b-', t2, avptrue(:,9), '-r','LineWidth',linewidth);xygo('H');
 %}    
+%{ 
     % 轨迹    
-    figure('name','SINS/DR Trajectory');
+    f = figure('name','SINS/DR Trajectory');
+    set(f,'unit','centimeters','position',[10 5 7.3 7.3]); 
     plot(r2d(insavp(:,8)), r2d(insavp(:,7)),'k-',...
         r2d(avptrue(:,8)), r2d(avptrue(:,7)),'r-','LineWidth',linewidth); xygo('lon', 'lat');setplt;
     plot(r2d(avptrue(1,8)), r2d(avptrue(1,7)), 'rp','LineWidth',linewidth);setplt;axis equal;
     l = legend('SINS/DR','TRUE', 'Location','Best');   set(l,'FontName','Times New Roman','FontSize',10.5);
-    pos2gpx('true.gpx',avptrue(:,7:9));
-    pos2gpx('navigation.gpx',insavp(:,7:9));
+    saveas(gcf, 'SINS-DR Trajectory', 'png');
+    % pos2gpx('true.gpx',avptrue(:,7:9));
+    % pos2gpx('navigation.gpx',insavp(:,7:9));
     
-    figure('name','SINS Trajectory');
+
+    f = figure('name','SINS Trajectory');
+    set(f,'unit','centimeters','position',[10 5 7.3 7.3]); 
     plot(r2d(insavp(:,8)), r2d(insavp(:,7)),'k-',...
         r2d(avptrue(:,8)), r2d(avptrue(:,7)),'r-','LineWidth',linewidth); xygo('lon', 'lat');setplt;
     plot(r2d(avptrue(1,8)), r2d(avptrue(1,7)), 'rp','LineWidth',linewidth);setplt;axis equal;
     l = legend('SINS','TRUE', 'Location','Best');   set(l,'FontName','Times New Roman','FontSize',10.5);
+    saveas(gcf, 'SINS Trajectory', 'png'); 
     
-    figure('name','DR Trajectory');
+    f = figure('name','DR Trajectory');
+    set(f,'unit','centimeters','position',[10 5 7.3 7.3]); 
     plot(r2d(dravp(:,8)), r2d(dravp(:,7)),'color',[0 0 0.5451],'LineWidth',linewidth);hold on;
     plot(r2d(avptrue(:,8)), r2d(avptrue(:,7)),'r-','LineWidth',linewidth); 
     plot(r2d(avptrue(1,8)), r2d(avptrue(1,7)), 'rp','LineWidth',linewidth);xygo('lon', 'lat');setplt;axis equal;
     l = legend('DR','TRUE', 'Location','Best');   set(l,'FontName','Times New Roman','FontSize',10.5);   
-    
-    
-    figure('name','Misalignment angle of SINS');%姿态失准角      
+    saveas(gcf, 'DR Trajectory', 'png');     
+   
+    f = figure('name','Misalignment angle of SINS');%姿态失准角      
+    set(f,'unit','centimeters','position',[10 5 7.3 7.3]);    
     subplot(311), plot(avperr(:,end),avperr(:,1)/glv.sec,'b',t, xk(:,1)/glv.sec,'k--','LineWidth',linewidth), xygo('phiE'); setplt;
-    l = legend('\phi_{TRUE}','\phi'); set(l,'FontName','Times New Roman','FontSize',10.5);
+    %l = legend('\phi_{TRUE}','\phi'); set(l,'FontName','Times New Roman','FontSize',10.5);
     subplot(312), plot(avperr(:,end),avperr(:,2)/glv.sec,'b',t, xk(:,2)/glv.sec,'k--','LineWidth',linewidth), xygo('phiN'); setplt;
-    subplot(313), plot(avperr(:,end),avperr(:,3)/glv.min,'b',t, xk(:,1)/glv.min,'k--','LineWidth',linewidth), xygo('phiU'); setplt;    
-    figure('name','Velocity error of SINS');%姿态失准角  
+    subplot(313), plot(avperr(:,end),avperr(:,3)/glv.min,'b',t, xk(:,1)/glv.min,'k--','LineWidth',linewidth), xygo('phiU'); setplt; 
+    saveas(gcf, 'Misalignment angle of SINS', 'png');  
+    
+    f = figure('name','Velocity error of SINS');
+    set(f,'unit','centimeters','position',[10 5 7.3 7.3]);  
     subplot(311);plot(avperr(:,end),avperr(:,4),'b',t,xk(:,4), 'k--','LineWidth',linewidth); xygo('dVE');setplt;
-    l = legend('\DeltaV','\deltaV'); set(l,'FontName','Times New Roman','FontSize',10.5);
+    %l = legend('\DeltaV','\deltaV'); set(l,'FontName','Times New Roman','FontSize',10.5);
     subplot(312);plot(avperr(:,end),avperr(:,5),'b',t,xk(:,5), 'k--','LineWidth',linewidth); xygo('dVN');setplt;
     subplot(313);plot(avperr(:,end),avperr(:,6),'b',t,xk(:,6), 'k--','LineWidth',linewidth); xygo('dVU');setplt;
-
-    figure('name','Position Error of SINS');    %SINS导航东、北、天位置误差
-    subplot(311);plot(avperr(:,end),avperr(:,7)*glv.Re,'b',t,xk(:,7)*glv.Re,'k--','LineWidth',linewidth); xygo('dlat');legend('\DeltaP','\deltaP');setplt;
+    saveas(gcf, 'Velocity error of SINS', 'png'); 
+    
+    f = figure('name','Position Error of SINS');    %SINS导航东、北、天位置误差
+    set(f,'unit','centimeters','position',[10 5 7.3 7.3]);  
+    subplot(311);plot(avperr(:,end),avperr(:,7)*glv.Re,'b',t,xk(:,7)*glv.Re,'k--','LineWidth',linewidth); xygo('dlat');%legend('\DeltaP','\deltaP');setplt;
+%     y_str = [-1000;0;10000];
+%     set(gca,'YTickLabel',y_str);
     subplot(312);plot(avperr(:,end),avperr(:,8)*glv.Re,'b',t,xk(:,8)*glv.Re,'k--','LineWidth',linewidth); xygo('dlon');	setplt;
     subplot(313);plot(avperr(:,end),avperr(:,9),'b',t,xk(:,9),'k--','LineWidth',linewidth); xygo('dH');setplt;
+    saveas(gcf, 'Position Error of SINS', 'png'); 
+%}
     pn = max(abs(avperr(:,7)*glv.Re)); pe = max(abs(avperr(:,8)*glv.Re));
     dperr = max(sqrt((avperr(:,7)*glv.Re).^2+(avperr(:,8)*glv.Re).^2)); 
-    fprintf('北向最大位置误差 : %d m，东向最大位置误差 : %d m，最大位置误差 : %d m\n',pn,pe,dperr);
-
+    fprintf('北向最大位置误差 : %d m，\n东向最大位置误差 : %d m，\n最大位置误差 : %d m\n',pn,pe,dperr);
+%{
     drperr = dravp(:,7:9)-avptrue(i_ref1:i_ref2,7:9); 
-    figure('name','Position Error of DR');    %SINS导航东、北、天位置误差
+    figure('name','Position Error of DR');    %DR导航东、北、天位置误差
     subplot(311);plot(t1,drperr(:,1)*glv.Re,'b',t,xk(:,16)*glv.Re,'k--','LineWidth',linewidth); xygo('dlat');legend('\DeltaP_D','\deltaP_D');setplt;
     subplot(312);plot(t1,drperr(:,2)*glv.Re,'b',t,xk(:,17)*glv.Re,'k--','LineWidth',linewidth); xygo('dlon');setplt;
     subplot(313);plot(t1,drperr(:,3),'b',t,xk(:,18),'k--','LineWidth',linewidth); xygo('dH');setplt;
@@ -77,7 +94,8 @@ global glv;
     subplot(312);plot(t,repmat(imuerr.eb(2)/glv.dph,len,1),'b',t,xk(:,11)/glv.dph,'k--','LineWidth',linewidth); xygo('eb');setplt;
     subplot(313);plot(t,repmat(imuerr.eb(3)/glv.dph,len,1),'b',t,xk(:,12)/glv.dph,'k--','LineWidth',linewidth); xygo('eb');setplt;
    
-    figure('name','accelerations Error');    %  陀螺误差 
+    figure('name','accelerations Error');    %  加计误差 
     subplot(311);plot(t,repmat(imuerr.db(1)/glv.ug,len,1),'b',t,xk(:,13)/glv.ug,'k--','LineWidth',linewidth); xygo('db');setplt;
     subplot(312);plot(t,repmat(imuerr.db(2)/glv.ug,len,1),'b',t,xk(:,14)/glv.ug,'k--','LineWidth',linewidth); xygo('db');setplt;
-    subplot(313);plot(t,repmat(imuerr.db(3)/glv.ug,len,1),'b',t,xk(:,15)/glv.ug,'k--','LineWidth',linewidth); xygo('db');setplt;   
+    subplot(313);plot(t,repmat(imuerr.db(3)/glv.ug,len,1),'b',t,xk(:,15)/glv.ug,'k--','LineWidth',linewidth); xygo('db');setplt; 
+%}
